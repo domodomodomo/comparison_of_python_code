@@ -16,7 +16,7 @@ def comparison():
         ((111869**3 * 128461**2, ), {}),
         ((111869**3 * 128461**2 * 188459**3, ), {}),
     ]
-    return funcscale.compare(function_list, argument_list, __name__)
+    return funcscale.compare(function_list, argument_list)
 
 
 #

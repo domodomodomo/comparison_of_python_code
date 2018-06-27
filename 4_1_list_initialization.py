@@ -13,7 +13,7 @@ def comparison():
     argument_list = [
         ((10**i, ), {}) for i in range(4)
     ]
-    return funcscale.compare(function_list, argument_list, __name__)
+    return funcscale.compare(function_list, argument_list)
 
 
 #

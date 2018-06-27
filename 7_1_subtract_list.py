@@ -12,7 +12,7 @@ def comparison():
         ((list3, list4), {}),
         ((list5, list6), {}),
     ]
-    funcscale.compare(function_list, argument_list, __name__)
+    funcscale.compare(function_list, argument_list)
 
 
 #

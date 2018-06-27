@@ -11,7 +11,7 @@ def comparison():
     argument_list = [
         ((10**i, ), {}) for i in range(1, 7)
     ]
-    funcscale.compare(function_list, argument_list, __name__)
+    funcscale.compare(function_list, argument_list)
 
 
 def primes(n):

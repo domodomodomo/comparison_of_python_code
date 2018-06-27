@@ -11,16 +11,16 @@ def comparison():
     ]
     argument_list = [
         (([random.randint(0, 10**n - 1) for i in range(10**n)], ), {})
-        for n in range(8)
+        for n in range(6)
     ]
-    funcscale.compare(function_list, argument_list, __name__)
+    funcscale.compare(function_list, argument_list)
 
 
 # overrides module's methods.
-def setup(function, argument, module_name):
+def setup(function, argument):
     return os.linesep.join((
-        'from ' + __name__ + ' import ' + function.__name__,
-        'from ' + __name__ + ' import BinarySearchTree',
+        'from __main__ import ' + function.__name__,
+        'from __main__ import BinarySearchTree',
         'tree = BinarySearchTree()',
         'tree.insert_list' + funcscale.repr_argument(argument),
         'BinarySearchTree.__iter__ = ' + function.__name__

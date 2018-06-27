@@ -11,14 +11,14 @@ def comparison():
     argument_list = [
         (([None] * 10**n, ), {}) for n in range(6)
     ]
-    funcscale.compare(function_list, argument_list, __name__)
+    funcscale.compare(function_list, argument_list)
 
 
 # overrides module's method.
-def setup(function, argument, module_name):
+def setup(function, argument):
     return os.linesep.join((
-        'from ' + __name__ + ' import ' + function.__name__,
-        'from ' + __name__ + ' import Container',
+        'from __main__ import ' + function.__name__,
+        'from __main__ import Container',
         'container = Container' + funcscale.repr_argument(argument),
         'Container.__iter__ = ' + function.__name__
     ))

@@ -16,7 +16,7 @@ def comparison():
         ((3313**3 * 3323**4, ), {}),
         ((3313**3 * 3323**5, ), {}),
     ]
-    funcscale.compare(function_list, argument_list, __name__)
+    funcscale.compare(function_list, argument_list)
 
 
 # unify function's input and output interface for funcscale.
