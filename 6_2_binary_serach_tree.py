@@ -18,7 +18,7 @@ def comparison():
             'from __main__ import ' + function.__name__,
             'from __main__ import BinarySearchTree',
             'tree = BinarySearchTree()',
-            'tree.insert_list' + funcscale.repr_argument(argument),
+            'tree.insert_iterable' + funcscale.repr_argument(argument),
             'BinarySearchTree.__iter__ = ' + function.__name__
         ))
 
@@ -82,7 +82,7 @@ class BinarySearchTree(object):
                 self.right = BinarySearchTree()
             self.right.insert(element)
 
-    def insert_list(self, iterable):
+    def insert_iterable(self, iterable):
         for element in iterable:
             self.insert(element)
 
