@@ -1,6 +1,5 @@
-import os
-import random
 import funcscale
+import random
 
 
 def comparison():
@@ -13,26 +12,25 @@ def comparison():
         (([random.randint(0, 10**n - 1) for i in range(10**n)], ), {})
         for n in range(6)
     ]
-    funcscale.compare(function_list, argument_list)
 
+    def setup(function, argument):
+        return '\n'.join((
+            'from __main__ import ' + function.__name__,
+            'from __main__ import BinarySearchTree',
+            'tree = BinarySearchTree()',
+            'tree.insert_list' + funcscale.repr_argument(argument),
+            'BinarySearchTree.__iter__ = ' + function.__name__
+        ))
 
-# overrides module's methods.
-def setup(function, argument):
-    return os.linesep.join((
-        'from __main__ import ' + function.__name__,
-        'from __main__ import BinarySearchTree',
-        'tree = BinarySearchTree()',
-        'tree.insert_list' + funcscale.repr_argument(argument),
-        'BinarySearchTree.__iter__ = ' + function.__name__
-    ))
+    def stmt(fucntion, argument):
+        return '[element for element in tree]'
 
+    funcscale.function_list = function_list
+    funcscale.argument_list = argument_list
+    funcscale.stmt = stmt
+    funcscale.setup = setup
 
-def stmt(fucntion, argument):
-    return '[element for element in tree]'
-
-
-funcscale.stmt = stmt
-funcscale.setup = setup
+    funcscale.compare()
 
 
 #

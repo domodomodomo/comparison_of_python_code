@@ -2,14 +2,14 @@ import funcscale
 
 
 def comparison():
-    function_list = [
+    funcscale.function_list = [
         primes_for,
         primes_while,
     ]
-    argument_list = [
+    funcscale.argument_list = [
         ((10**i, ), {}) for i in range(7)
     ]
-    funcscale.compare(function_list, argument_list)
+    funcscale.compare()
 
 
 #

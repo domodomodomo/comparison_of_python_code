@@ -3,12 +3,12 @@ import funcscale
 
 
 def comparison():
-    function_list = [
+    funcscale.function_list = [
         prime_decomposition_for,
         prime_decomposition_for_itertools,
         prime_decomposition_while,
     ]
-    argument_list = [
+    funcscale.argument_list = [
         ((2**3 * 3**12 * 5**7, ), {}),
         ((3313**3 * 3323**3, ), {}),
         ((9973**5 * 9932**3 * 9901**2, ), {}),
@@ -16,7 +16,7 @@ def comparison():
         ((111869**3 * 128461**2, ), {}),
         ((111869**3 * 128461**2 * 188459**3, ), {}),
     ]
-    return funcscale.compare(function_list, argument_list)
+    return funcscale.compare()
 
 
 #

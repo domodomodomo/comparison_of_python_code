@@ -3,15 +3,15 @@ import funcscale
 
 
 def comparison():
-    function_list = [
+    funcscale.function_list = [
         primes,
         primes_fast,
         primes_ordered_dict
     ]
-    argument_list = [
+    funcscale.argument_list = [
         ((10**i, ), {}) for i in range(1, 7)
     ]
-    funcscale.compare(function_list, argument_list)
+    funcscale.compare()
 
 
 def primes(n):

@@ -1,9 +1,9 @@
 import timeit
 
 
-def compare():
-    _compare_result()
-    _compare_time()
+def compare(function_list, argument_list, stmt=stmt, setup=setup):
+    _compare_result(function_list, argument_list, stmt, setup)
+    _compare_time(function_list, argument_list, stmt, setup)
 
 
 # _compare_result
@@ -34,8 +34,8 @@ def _compare_time():
 
 
 # util
-function_list = None
-argument_list = None
+function_list = []
+argument_list = []
 
 
 def stmt(function, argument):

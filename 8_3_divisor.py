@@ -3,12 +3,12 @@ import funcscale
 
 
 def comparison():
-    function_list = [
+    funcscale.function_list = [
         _divisorize_pair,
         _divisorize_syntax,
         _divisorize_naive,
     ]
-    argument_list = [
+    funcscale.argument_list = [
         ((2**2 * 3**2 * 5**2, ), {}),
         ((2**2 * 3**3 * 5**3, ), {}),
         ((2**2 * 3**3 * 5**4, ), {}),
@@ -16,7 +16,7 @@ def comparison():
         ((3313**3 * 3323**4, ), {}),
         ((3313**3 * 3323**5, ), {}),
     ]
-    funcscale.compare(function_list, argument_list)
+    funcscale.compare()
 
 
 # unify function's input and output interface for funcscale.
@@ -158,5 +158,6 @@ def num_naive(fct):
 #
 if __name__ == '__main__':
     comparison()
+    sample()
 else:
     factorize, divisorize, num = factorize_pair, divisorize_pair, num_pair

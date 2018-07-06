@@ -2,7 +2,7 @@ import funcscale
 
 
 def comparison():
-    function_list = [
+    funcscale.function_list = [
         multicative_list,
         for_statement,
         for_statement_list_comprehension,
@@ -10,10 +10,10 @@ def comparison():
         while_statement_with_iterator,
         while_statement_with_iterator_optimized,
     ]
-    argument_list = [
+    funcscale.argument_list = [
         ((10**i, ), {}) for i in range(4)
     ]
-    return funcscale.compare(function_list, argument_list)
+    return funcscale.compare()
 
 
 #

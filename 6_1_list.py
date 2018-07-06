@@ -1,4 +1,3 @@
-import os
 import funcscale
 
 
@@ -11,25 +10,24 @@ def comparison():
     argument_list = [
         (([None] * 10**n, ), {}) for n in range(6)
     ]
-    funcscale.compare(function_list, argument_list)
 
+    def setup(function, argument):
+        return '\n'.join((
+            'from __main__ import ' + function.__name__,
+            'from __main__ import Container',
+            'container = Container' + funcscale.repr_argument(argument),
+            'Container.__iter__ = ' + function.__name__
+        ))
 
-# overrides module's method.
-def setup(function, argument):
-    return os.linesep.join((
-        'from __main__ import ' + function.__name__,
-        'from __main__ import Container',
-        'container = Container' + funcscale.repr_argument(argument),
-        'Container.__iter__ = ' + function.__name__
-    ))
+    def stmt(fucntion, argument):
+        return '[element for element in container]'
 
+    funcscale.function_list = function_list
+    funcscale.argument_list = argument_list
+    funcscale.stmt = stmt
+    funcscale.setup = setup
 
-def stmt(fucntion, argument):
-    return '[element for element in container]'
-
-
-funcscale.stmt = stmt
-funcscale.setup = setup
+    funcscale.compare()
 
 
 #

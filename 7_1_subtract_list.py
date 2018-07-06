@@ -2,17 +2,17 @@ import funcscale
 
 
 def comparison():
-    function_list = [
+    funcscale.function_list = [
         subtract_list_try_remove,
         subtract_list_for_if,
         subtract_list_while_if
     ]
-    argument_list = [
+    funcscale.argument_list = [
         ((list1, list2), {}),
         ((list3, list4), {}),
         ((list5, list6), {}),
     ]
-    funcscale.compare(function_list, argument_list)
+    funcscale.compare()
 
 
 #
