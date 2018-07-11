@@ -10,7 +10,7 @@ def comparison():
     ]
     argument_list = [
         (([random.randint(0, 10**n - 1) for i in range(10**n)], ), {})
-        for n in range(6)
+        for n in range(7)
     ]
 
     def setup(function, argument):
@@ -43,15 +43,15 @@ def sample():
 
     print('# 1) for statement')
     binary_search_tree = BinarySearchTree()
-    binary_search_tree.insert_list((8, 3, 1, 6, 10, 4, 7, 14, 13))
+    binary_search_tree.insert_iterable((8, 3, 1, 6, 10, 4, 7, 14, 13))
     for element in binary_search_tree:
         print(element)
 
     print('# 2) built-in function taking itrable object')
     tree_a = BinarySearchTree()
     tree_b = BinarySearchTree()
-    tree_a.insert_list((1, 2, 3, 4, 5, 6))
-    tree_b.insert_list((3, 4, 5, 6, 2, 1))
+    tree_a.insert_iterable((1, 2, 3, 4, 5, 6))
+    tree_b.insert_iterable((3, 4, 5, 6, 2, 1))
     print(set(tree_a) == set(tree_b))  # True
 
     print('# 3) you do not need implement list method.')
@@ -111,13 +111,12 @@ def iterator(self):
 
 class BinarySearchTreeIterator(object):
     def __init__(self, root):
-        self._route = []
-        # add pseudo_node
         pseudo_node = BinarySearchTree()
         pseudo_node.right = root
-        self._route.append({
-            'node': pseudo_node,
-            'is_right_child': True})
+        self._route = [pseudo_node]
+
+    def __iter__(self):
+        return self
 
     def __next__(self):
         if self._current_node().right is not None:
@@ -127,30 +126,19 @@ class BinarySearchTreeIterator(object):
         return self._current_node().element
 
     def _down(self):
-        # down to right side one time, then
-        self._route.append({
-            'node': self._current_node().right,
-            'is_right_child': True})
-        # down to left side until reaching leaf
+        self._route.append(self._current_node().right)
         while self._current_node().left is not None:
-            self._route.append({
-                'node': self._current_node().left,
-                'is_right_child': False})
+            self._route.append(self._current_node().left)
 
     def _up(self):
-        # up while node is right child
-        try:
-            while self._route.pop()['is_right_child']:
-                pass
-        # reaching pseudo_node
-        except IndexError:
-            raise StopIteration
+        while self._route.pop() == self._current_node().right:
+            pass
 
     def _current_node(self):
-        return self._route[-1]['node']
-
-    def __iter__(self):
-        return self
+        try:
+            return self._route[-1]
+        except IndexError:
+            raise StopIteration
 
 
 #
