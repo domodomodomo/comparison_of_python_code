@@ -3,6 +3,7 @@ import random
 
 
 def comparison():
+    # Create parameters.
     function_list = [
         list_iterator,
         iterator,
@@ -25,11 +26,13 @@ def comparison():
     def stmt(fucntion, argument):
         return '[element for element in tree]'
 
+    # Set parameters.
     funcscale.function_list = function_list
     funcscale.argument_list = argument_list
     funcscale.stmt = stmt
     funcscale.setup = setup
 
+    # Execute.
     funcscale.compare()
 
 
@@ -88,10 +91,10 @@ class BinarySearchTree(object):
 
     def generate_sorted_list(self):
         sorted_list = []
-        if self.left:
+        if self.left is not None:
             sorted_list.extend(self.left.generate_sorted_list())
         sorted_list.append(self.element)
-        if self.right:
+        if self.right is not None:
             sorted_list.extend(self.right.generate_sorted_list())
         return sorted_list
 
@@ -99,12 +102,12 @@ class BinarySearchTree(object):
         raise NotImplementedError
 
 
-#
+# 1.
 def list_iterator(self):
     return iter(self.generate_sorted_list())
 
 
-#
+# 2.
 def iterator(self):
     return BinarySearchTreeIterator(self)
 
@@ -131,28 +134,31 @@ class BinarySearchTreeIterator(object):
             self._route.append(self._current_node().left)
 
     def _up(self):
-        while self._route.pop() == self._current_node().right:
+        while self._route.pop() == self._current_node_safety().right:
             pass
 
     def _current_node(self):
+        return self._route[-1]
+
+    def _current_node_safety(self):
         try:
             return self._route[-1]
         except IndexError:
             raise StopIteration
 
 
-#
+# 3.
 def generator(self):
-    if self.left:
-        yield from iter(self.left)
+    if self.left is not None:
+        yield from self.left
     yield self.element
-    if self.right:
-        yield from iter(self.right)
+    if self.right is not None:
+        yield from self.right
 
 
 #
 #
 #
 if __name__ == "__main__":
-    comparison()
     sample()
+    comparison()
