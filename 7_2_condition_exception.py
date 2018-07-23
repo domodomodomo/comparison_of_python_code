@@ -35,7 +35,7 @@ def comparison():
 class Reverse(object):
     def __init__(self, sequence):
         self._sequence = sequence
-        self._index = -0
+        self._index = 0
 
     def __iter__(self):
         return self
