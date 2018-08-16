@@ -56,21 +56,11 @@ def sample():
 #
 #
 class Container(object):
-    def __init__(self, iterable):
-        self._list = list(iterable)
+    def __init__(self, list_):
+        self._list = list_
 
     def __iter__(self):
         raise NotImplementedError
-
-
-#
-def list_iterator(self):
-    return iter(self._list)
-
-
-#
-def iterator(self):
-    return ListIterator(self._list)
 
 
 class ListIterator(object):
@@ -89,7 +79,7 @@ class ListIterator(object):
         except IndexError:
             raise StopIteration
         """
-        # このようなケースでは if よりも try が速い。
+        # try stmt is faster than if stmt in this case.
         if self._index < len(self._list):
             element = self._list[self._index]
             self._index = self._index + 1
@@ -99,7 +89,14 @@ class ListIterator(object):
         """
 
 
-#
+def list_iterator(self):
+    return iter(self._list)
+
+
+def iterator(self):
+    return ListIterator(self._list)
+
+
 def generator(self):
     index = 0
     while True:

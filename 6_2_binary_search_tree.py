@@ -83,7 +83,7 @@ def comparison():
     ]
     argument_list = [
         (([random.randint(0, 10**n - 1) for i in range(10**n)], ), {})
-        for n in range(7)
+        for n in range(6)
     ]
 
     def setup(function, argument):
@@ -159,7 +159,10 @@ class BinarySearchTree(object):
             raise ValueError
 
     def __iter__(self):
-        return iter(self.root)
+        if self.root:
+            return iter(self.root)
+        else:
+            return iter([])  # empty iterator
 
 
 #
@@ -238,11 +241,11 @@ class BinarySearchNode(object):
         path = Path(self)
         while True:
             try:
-                node = next(path)
+                value = next(path)
             except StopIteration:
                 break
             else:
-                sorted_list.append(node)
+                sorted_list.append(value)
         return sorted_list
 
     #
@@ -428,36 +431,29 @@ class Debug:
         return Debug.log_node(binary_search_tree.root)
 
     def log_node(root):
-        if root is None:
+        if root:
             return '\n'
 
-        if not all(0 <= value <= 99 for value in root.list_sequentially()):
+        if not all(0 <= value <= 99 for value in root.list()):
             raise ValueError('A value shoud be between 0 and 99.')
 
-        node_list = list(Debug._node_generator(root))
+        node_list = [node for node in Debug._node_generator(root)]
         route_list = [list(Debug._route(root, node)) for node in node_list]
-        value_list = [str(v).zfill(2) for v in root.list_sequentially()]
-        depth_list = [len(route) - 1 for route in route_list]
+        value_list = [str(value).zfill(2) for value in root.list()]
         index_list = [Debug._index(Debug._path(route)) for route in route_list]
-
-        # position_list
-        position_list = []
-        max_depth = max(depth_list)
-        for depth, index in zip(depth_list, index_list):
-            initial = 2 * (2**(max_depth - depth) - 1)
-            space = 4 * 2**(max_depth - depth)
-            position_list.append(initial + space * index)
+        depth_list = [len(route) - 1 for route in route_list]
+        height_list = [max(depth_list) - depth for depth in depth_list]
+        position_list = [Debug._position(height, index) for height, index in
+                         zip(height_list, index_list)]
 
         # layer_list
-        layer_len = (4 * 2**max_depth - 2)
+        layer_len = (4 * 2**max(depth_list) - 2)
         layer = ' ' * layer_len
-        layer_list = [layer] * (max_depth + 1)
+        layer_list = [layer] * (max(depth_list) + 1)
         for depth, position, value\
                 in zip(depth_list, position_list, value_list):
             layer_list[depth] = Debug._paste(
-                pasted=layer_list[depth],
-                seal=value,
-                position=position,)
+                pasted=layer_list[depth], seal=value, position=position,)
 
         return '\n'.join(layer_list)
 
@@ -470,10 +466,8 @@ class Debug:
             yield from Debug._node_generator(bsn.right)
 
     def _route(root, node):
-        #
         yield root
 
-        #
         if node.value < root.value:
             if root.left:
                 yield from Debug._route(root.left, node)
@@ -511,6 +505,12 @@ class Debug:
             pasted[position + i] = c
         return ''.join(pasted)
 
+    def _position(height, index):
+        initial = 2 * (2**height - 1)
+        space = 4 * 2**height
+        position = initial + space * index
+        return position
+
     #
     #
     #
@@ -521,21 +521,13 @@ class Debug:
         BST.delete_right = Debug._register_printer(BST.delete_right)
 
     def _register_printer(func):
-        if func not in (
-                BinarySearchTree.insert,
-                BinarySearchTree.delete_left,
-                BinarySearchTree.delete_right):
-            raise ValueError(f"{func.__name__} is not compatible log.")
-
         def decorated_func(binary_search_tree, *args, **kwargs):
             if not(0 <= args[0] <= 99):
                 raise ValueError('A value shoud be between 0 and 99.')
 
             result = func(binary_search_tree, *args, **kwargs)
 
-            print(func.__name__, args, sep='')
             print(Debug.log(binary_search_tree))
-
             return result
         return decorated_func
 
