@@ -5,6 +5,9 @@ try:
 except ModuleNotFoundError:
     print(ModuleNotFoundError)
     print('Please download binary_search_tree.py from ...')
+    print('https://github.com/domodomodomo/binary_search_tree')
+    import sys
+    sys.exit()
 
 
 def comparison():
